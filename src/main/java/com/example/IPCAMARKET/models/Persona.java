@@ -1,0 +1,173 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.example.IPCAMARKET.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author Skull
+ */
+@Entity
+@Table(name = "persona")
+public class Persona implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long idPersona;
+    
+    @Column(name = "cedula",unique = true)
+    private String cedula;
+    
+    @Column(name = "primer_nombre_persona",nullable =true)
+    private String primer_nombre_persona;
+    
+    @Column(name = "segundo_nombre_persona",nullable =false)
+    private String segundo_nombre_persona;
+    
+    @Column(name = "primer_apellido_persona",nullable =true)
+    private String primer_apellido_persona;
+    
+    @Column(name = "segundo_apellido_persona",nullable =false)
+    private String segundo_apellido_persona;
+    
+    @Column(name = "telefono", nullable = false)
+    private String telefono;
+    
+    @Column(name = "direccion",nullable =false )
+    private String direccion;
+    
+    @Column(name = "email",nullable = false)
+    private String email;
+    
+    @Column(name = "fecha_nacimiento",nullable =true )
+    private LocalDate fecha_nacimiento;
+    
+    @Column(name = "genero",nullable =true )
+    private String genero;
+    
+    @Column(name = "foto_persona")
+    private String foto_persona;
+    
+     @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "persona")
+    private List<Usuario> usuarios;
+    
+  
+
+    public Long getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Long idPersona) {
+        this.idPersona = idPersona;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getPrimer_nombre_persona() {
+        return primer_nombre_persona;
+    }
+
+    public void setPrimer_nombre_persona(String primer_nombre_persona) {
+        this.primer_nombre_persona = primer_nombre_persona;
+    }
+
+    public String getSegundo_nombre_persona() {
+        return segundo_nombre_persona;
+    }
+
+    public void setSegundo_nombre_persona(String segundo_nombre_persona) {
+        this.segundo_nombre_persona = segundo_nombre_persona;
+    }
+
+    public String getPrimer_apellido_persona() {
+        return primer_apellido_persona;
+    }
+
+    public void setPrimer_apellido_persona(String primer_apellido_persona) {
+        this.primer_apellido_persona = primer_apellido_persona;
+    }
+
+    public String getSegundo_apellido_persona() {
+        return segundo_apellido_persona;
+    }
+
+    public void setSegundo_apellido_persona(String segundo_apellido_persona) {
+        this.segundo_apellido_persona = segundo_apellido_persona;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getFoto_persona() {
+        return foto_persona;
+    }
+
+    public void setFoto_persona(String foto_persona) {
+        this.foto_persona = foto_persona;
+    }
+    
+
+  
+    
+}
