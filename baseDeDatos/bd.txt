@@ -1,0 +1,89 @@
+
+CREATE TABLE persona (
+"idPersona" serial  PRIMARY KEY,
+cedula_persona VARCHAR(15),
+primer_nombre_persona VARCHAR(50),
+segundo_nombre_persona VARCHAR(50),
+primer_apellido_persona VARCHAR(50),
+segundo_apellido_persona VARCHAR(50),
+telefono_persona VARCHAR(15),
+direccion_persona VARCHAR(150),
+email_persona VARCHAR(75),
+fecha_nacimiento DATE,
+genero_persona VARCHAR(30),
+foto_persona BYTEA 
+);
+
+CREATE TABLE usuario (
+"idUsuario" serial PRIMARY KEY,
+nombre_usuario  VARCHAR(50),
+password_usuario BYTEA,
+"idPersona" INTEGER
+);
+
+CREATE TABLE rol (
+"idRol" serial PRIMARY KEY NOT NULL,
+nombre_rol VARCHAR(50),
+descripcion_rol VARCHAR(100),
+"idUsuario" INTEGER
+);
+
+CREATE TABLE producto(
+"idProducto" serial PRIMARY KEY NOT NULL,
+"codigoBarras_producto" VARCHAR (25) NOT NULL,
+nombre_producto VARCHAR(300) NOT NULL,
+precio_producto FLOAT NOT NULL,
+"cantidadActual_producto" FLOAT NOT NULL,
+"cantidadMin_producto" FLOAT NOT NULL,
+foto_producto BYTEA,
+"idCategoria" INTEGER
+);
+CREATE TABLE categoria (
+"idCategoria" serial PRIMARY KEY NOT NULL,
+nombre_categoria VARCHAR(100),
+descripcion_categoria VARCHAR(150)
+);
+
+CREATE TABLE movimiento (
+"idMovimiento" serial PRIMARY KEY NOT NULL,
+fecha_movimiento DATE NOT NULL,
+observacion_movimiento VARCHAR(150),
+"idTipoMovimiento" INTEGER,
+"idUsuario" INTEGER
+);
+CREATE TABLE "tipoMovimiento"(
+"idTipoMovimiento" serial PRIMARY KEY NOT NULL,
+nombre_tipo_movimiento VARCHAR(20),
+es_ingreso_tipo_movimiento BOOLEAN
+);
+CREATE TABLE "detalleMovimiento"(
+"idDetalleMovimiento" serial PRIMARY KEY NOT NULL,
+cantidad_detalle_movimiento INTEGER NOT NULL,
+"idMovimiento" INTEGER,
+"idProducto" INTEGER
+);
+CREATE TABLE "encabezadoFactura"(
+"idEncabezadoFactura" serial  PRIMARY KEY NOT NULL,
+fecha_encabezadoFactura DATE,
+nombreInstituto VARCHAR(100)
+);
+CREATE TABLE "detalleFactura"(
+"idDetalleFactura" serial PRIMARY KEY NOT NULL,
+cantidad_detalle_factura INTEGER not null,
+subtotal_detalle_factura FLOAT,
+total_detalle_factura FLOAT,
+"idProducto" INTEGER,
+"idEncabezadoFactura" INTEGER
+);
+
+
+
+ALTER TABLE usuario ADD FOREIGN KEY ("idPersona") REFERENCES persona("idPersona");
+ALTER TABLE rol ADD FOREIGN KEY ("idUsuario") REFERENCES usuario("idUsuario");
+ALTER TABLE producto ADD FOREIGN KEY ("idCategoria") REFERENCES categoria("idCategoria");
+ALTER TABLE movimiento ADD FOREIGN KEY ("idTipoMovimiento") REFERENCES "tipoMovimiento"("idTipoMovimiento"),
+ADD FOREIGN KEY ("idUsuario") REFERENCES usuario("idUsuario");
+ALTER TABLE "detalleMovimiento" ADD FOREIGN KEY ("idMovimiento") REFERENCES movimiento("idMovimiento"), 
+ADD FOREIGN KEY ("idProducto") REFERENCES producto("idProducto");
+ALTER TABLE "detalleFactura" ADD FOREIGN KEY("idProducto") REFERENCES producto("idProducto"), 
+ADD FOREIGN KEY ("idEncabezadoFactura") REFERENCES "encabezadoFactura" ("idEncabezadoFactura");

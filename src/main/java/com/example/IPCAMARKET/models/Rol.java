@@ -6,10 +6,7 @@
 package com.example.IPCAMARKET.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,31 +22,23 @@ import javax.persistence.Table;
  * @author Skull
  */
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
+@Table(name = "rol")
+public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
+    private Long idRol;
 
-    @Column(name = "nombre_usuario", nullable = false, length = 50)
-    private String nombre_usuario;
+    @Column(name = "nombre_rol", nullable = false, length = 50)
+    private String nombre_rol;
 
-    @Column(name = "password_usuario", nullable = false, length = 50)
-    private String password_usuario;
+    @Column(name = "descripcion_rol", nullable = true, length = 100)
+    private String descripcion_rol;
 
     @JsonBackReference
-    @JoinColumn(name = "idPersona")
+    @JoinColumn(name = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Persona persona;
-
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Rol> roles;
-
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Movimiento> movimientos;
+    private Usuario usuario;
 
 }

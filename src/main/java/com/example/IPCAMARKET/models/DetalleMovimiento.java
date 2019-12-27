@@ -6,10 +6,7 @@
 package com.example.IPCAMARKET.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,31 +22,25 @@ import javax.persistence.Table;
  * @author Skull
  */
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
+@Table(name="detalleMovimiento")
+public class DetalleMovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
-
-    @Column(name = "nombre_usuario", nullable = false, length = 50)
-    private String nombre_usuario;
-
-    @Column(name = "password_usuario", nullable = false, length = 50)
-    private String password_usuario;
-
+    private Long idDetalleMovimiento;
+    
+    @Column(name = "cantidad_detalle_movimiento",nullable = false)
+    private Integer cantidad_detalle_movimiento;
+    
     @JsonBackReference
-    @JoinColumn(name = "idPersona")
+    @JoinColumn(name = "idMovimiento")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Persona persona;
-
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Rol> roles;
-
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Movimiento> movimientos;
-
+    private Movimiento movimiento;
+    
+    @JsonBackReference
+    @JoinColumn(name = "idProducto")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Producto producto;
+   
 }

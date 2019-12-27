@@ -8,6 +8,7 @@ package com.example.IPCAMARKET.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,31 +27,32 @@ import javax.persistence.Table;
  * @author Skull
  */
 @Entity
-@Table(name = "usuario")
-public class Usuario implements Serializable {
+@Table(name = "movimiento")
+public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idUsuario;
+    private Long idMovimiento;
 
-    @Column(name = "nombre_usuario", nullable = false, length = 50)
-    private String nombre_usuario;
+    @Column(name = "fecha_movimiento", nullable = false)
+    private LocalDate fecha_movimiento;
 
-    @Column(name = "password_usuario", nullable = false, length = 50)
-    private String password_usuario;
+    @Column(name = "observacion_movimiento", nullable = true, length = 150)
+    private String observacion_movimiento;
 
     @JsonBackReference
-    @JoinColumn(name = "idPersona")
+    @JoinColumn(name = "idTipoMovimiento")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Persona persona;
+    private TipoMovimiento tipoMovimiento;
 
+    @JsonBackReference
+    @JoinColumn(name = "idUsuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuario usuario;
+    
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Rol> roles;
-
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Movimiento> movimientos;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movimiento")
+    private List<DetalleMovimiento> detalleMovimientos;
 
 }
