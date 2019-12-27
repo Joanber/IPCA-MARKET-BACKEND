@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>IPCA-MARKET</artifactId>
+    <artifactId>IPCA-MARKET-BACKEND</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>IPCA-MARKET</name>
+    <name>IPCA-MARKET-BACKEND</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
