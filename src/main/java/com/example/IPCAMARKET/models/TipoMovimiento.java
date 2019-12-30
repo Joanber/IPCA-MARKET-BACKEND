@@ -5,7 +5,6 @@
  */
 package com.example.IPCAMARKET.models;
 
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -38,10 +37,43 @@ public class TipoMovimiento implements Serializable {
     @Column(name = "es_ingreso_tipo_movimiento", nullable = true)
     private boolean es_ingreso_tipo_movimiento;
 
-    
-
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tipoMovimiento")
     private List<Movimiento> movimientos;
+
+    public TipoMovimiento() {
+    }
+
+    public Long getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
+
+    public void setIdTipoMovimiento(Long idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
+
+    public String getNombre_tipo_movimiento() {
+        return nombre_tipo_movimiento;
+    }
+
+    public void setNombre_tipo_movimiento(String nombre_tipo_movimiento) {
+        this.nombre_tipo_movimiento = nombre_tipo_movimiento;
+    }
+
+    public boolean isEs_ingreso_tipo_movimiento() {
+        return es_ingreso_tipo_movimiento;
+    }
+
+    public void setEs_ingreso_tipo_movimiento(boolean es_ingreso_tipo_movimiento) {
+        this.es_ingreso_tipo_movimiento = es_ingreso_tipo_movimiento;
+    }
+
+    public List<Movimiento> getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(List<Movimiento> movimientos) {
+        this.movimientos = movimientos;
+    }
 
 }

@@ -41,4 +41,39 @@ public class Categoria implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;
 
+    public Categoria() {
+    }
+
+    public Long getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Long idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public String getNombre_categoria() {
+        return nombre_categoria;
+    }
+
+    public void setNombre_categoria(String nombre_categoria) {
+        this.nombre_categoria = nombre_categoria;
+    }
+
+    public String getDescripcion_categoria() {
+        return descripcion_categoria;
+    }
+
+    public void setDescripcion_categoria(String descripcion_categoria) {
+        this.descripcion_categoria = descripcion_categoria;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
 }

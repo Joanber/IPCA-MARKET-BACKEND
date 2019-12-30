@@ -24,23 +24,57 @@ import javax.persistence.Table;
  * @author Skull
  */
 @Entity
-@Table(name="encabezadoFactura")
+@Table(name = "encabezadoFactura")
 public class EncabezadoFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idEncabezadoFactura;
-    
-    @Column(name = "fecha_encabezadoFactura" ,nullable = false)
-    private LocalDate fecha_encabezadoFactura;
-    
-    @Column(name = "nombreInstituto" ,nullable = true)
-    private String nombreInstituto;
-    
-     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "encabezadoFactura")
-    private List<DetalleFactura> detalleFacturas;   
 
-    
+    @Column(name = "fecha_encabezadoFactura", nullable = false)
+    private LocalDate fecha_encabezadoFactura;
+
+    @Column(name = "nombreInstituto", nullable = true)
+    private String nombreInstituto;
+
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "encabezadoFactura")
+    private List<DetalleFactura> detalleFacturas;
+
+    public EncabezadoFactura() {
+    }
+
+    public Long getIdEncabezadoFactura() {
+        return idEncabezadoFactura;
+    }
+
+    public void setIdEncabezadoFactura(Long idEncabezadoFactura) {
+        this.idEncabezadoFactura = idEncabezadoFactura;
+    }
+
+    public LocalDate getFecha_encabezadoFactura() {
+        return fecha_encabezadoFactura;
+    }
+
+    public void setFecha_encabezadoFactura(LocalDate fecha_encabezadoFactura) {
+        this.fecha_encabezadoFactura = fecha_encabezadoFactura;
+    }
+
+    public String getNombreInstituto() {
+        return nombreInstituto;
+    }
+
+    public void setNombreInstituto(String nombreInstituto) {
+        this.nombreInstituto = nombreInstituto;
+    }
+
+    public List<DetalleFactura> getDetalleFacturas() {
+        return detalleFacturas;
+    }
+
+    public void setDetalleFacturas(List<DetalleFactura> detalleFacturas) {
+        this.detalleFacturas = detalleFacturas;
+    }
+
 }

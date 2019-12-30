@@ -50,9 +50,60 @@ public class Movimiento implements Serializable {
     @JoinColumn(name = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
-    
+
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movimiento")
     private List<DetalleMovimiento> detalleMovimientos;
+
+    public Movimiento() {
+    }
+
+    public Long getIdMovimiento() {
+        return idMovimiento;
+    }
+
+    public void setIdMovimiento(Long idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    public LocalDate getFecha_movimiento() {
+        return fecha_movimiento;
+    }
+
+    public void setFecha_movimiento(LocalDate fecha_movimiento) {
+        this.fecha_movimiento = fecha_movimiento;
+    }
+
+    public String getObservacion_movimiento() {
+        return observacion_movimiento;
+    }
+
+    public void setObservacion_movimiento(String observacion_movimiento) {
+        this.observacion_movimiento = observacion_movimiento;
+    }
+
+    public TipoMovimiento getTipoMovimiento() {
+        return tipoMovimiento;
+    }
+
+    public void setTipoMovimiento(TipoMovimiento tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<DetalleMovimiento> getDetalleMovimientos() {
+        return detalleMovimientos;
+    }
+
+    public void setDetalleMovimientos(List<DetalleMovimiento> detalleMovimientos) {
+        this.detalleMovimientos = detalleMovimientos;
+    }
 
 }

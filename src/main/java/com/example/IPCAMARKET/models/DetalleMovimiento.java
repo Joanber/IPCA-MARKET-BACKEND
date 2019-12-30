@@ -22,25 +22,60 @@ import javax.persistence.Table;
  * @author Skull
  */
 @Entity
-@Table(name="detalleMovimiento")
+@Table(name = "detalleMovimiento")
 public class DetalleMovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idDetalleMovimiento;
-    
-    @Column(name = "cantidad_detalle_movimiento",nullable = false)
+
+    @Column(name = "cantidad_detalle_movimiento", nullable = false)
     private Integer cantidad_detalle_movimiento;
-    
+
     @JsonBackReference
     @JoinColumn(name = "idMovimiento")
     @ManyToOne(fetch = FetchType.LAZY)
     private Movimiento movimiento;
-    
+
     @JsonBackReference
     @JoinColumn(name = "idProducto")
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;
-   
+
+    public DetalleMovimiento() {
+    }
+
+    public Long getIdDetalleMovimiento() {
+        return idDetalleMovimiento;
+    }
+
+    public void setIdDetalleMovimiento(Long idDetalleMovimiento) {
+        this.idDetalleMovimiento = idDetalleMovimiento;
+    }
+
+    public Integer getCantidad_detalle_movimiento() {
+        return cantidad_detalle_movimiento;
+    }
+
+    public void setCantidad_detalle_movimiento(Integer cantidad_detalle_movimiento) {
+        this.cantidad_detalle_movimiento = cantidad_detalle_movimiento;
+    }
+
+    public Movimiento getMovimiento() {
+        return movimiento;
+    }
+
+    public void setMovimiento(Movimiento movimiento) {
+        this.movimiento = movimiento;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
 }

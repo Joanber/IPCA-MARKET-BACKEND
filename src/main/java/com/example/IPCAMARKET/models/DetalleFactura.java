@@ -47,4 +47,57 @@ public class DetalleFactura implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private EncabezadoFactura encabezadoFactura;
 
+    public DetalleFactura() {
+    }
+
+    public Long getIdDetalleFactura() {
+        return idDetalleFactura;
+    }
+
+    public void setIdDetalleFactura(Long idDetalleFactura) {
+        this.idDetalleFactura = idDetalleFactura;
+    }
+
+    public Integer getCantidad_detalle_factura() {
+        return cantidad_detalle_factura;
+    }
+
+    public void setCantidad_detalle_factura(Integer cantidad_detalle_factura) {
+        this.cantidad_detalle_factura = cantidad_detalle_factura;
+    }
+
+    public double getSubtotal_detalle_factura() {
+        return subtotal_detalle_factura;
+    }
+
+    public void setSubtotal_detalle_factura(double subtotal_detalle_factura) {
+        this.subtotal_detalle_factura = subtotal_detalle_factura;
+    }
+
+    public double getTotal_detalle_factura() {
+        return total_detalle_factura;
+    }
+
+    public void setTotal_detalle_factura(double total_detalle_factura) {
+        this.total_detalle_factura = total_detalle_factura;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public EncabezadoFactura getEncabezadoFactura() {
+        return encabezadoFactura;
+    }
+
+    public void setEncabezadoFactura(EncabezadoFactura encabezadoFactura) {
+        this.encabezadoFactura = encabezadoFactura;
+    }
+    
+    
+
 }
