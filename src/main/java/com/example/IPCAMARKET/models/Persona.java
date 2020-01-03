@@ -5,9 +5,11 @@
  */
 package com.example.IPCAMARKET.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +20,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,7 +32,7 @@ import javax.persistence.Table;
 public class Persona implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPersona;
 
     @Column(name = "cedula_persona",nullable = true,  length = 15)
@@ -56,7 +60,8 @@ public class Persona implements Serializable {
     private String email_persona;
 
     @Column(name = "fecha_nacimiento", nullable = false)
-    private LocalDate fecha_nacimiento;
+    @Temporal(TemporalType.DATE)
+    private Date fecha_nacimiento;
 
     @Column(name = "genero_persona", nullable = false, length = 30)
     private String genero_persona;
@@ -64,7 +69,6 @@ public class Persona implements Serializable {
     @Column(name = "foto_persona", nullable = false)
     private String foto_persona;
 
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "persona")
     private List<Usuario> usuarios;
 
@@ -143,13 +147,15 @@ public class Persona implements Serializable {
         this.email_persona = email_persona;
     }
 
-    public LocalDate getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
+
+   
 
     public String getGenero_persona() {
         return genero_persona;
