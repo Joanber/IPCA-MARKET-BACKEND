@@ -6,6 +6,9 @@
 package com.example.IPCAMARKET.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,7 +38,6 @@ public class Categoria implements Serializable {
 
     @Column(name = "descripcion_categoria", nullable = true, length = 150)
     private String descripcion_categoria;
-
     @JsonBackReference
     @JoinColumn(name = "idProducto")
     @ManyToOne(fetch = FetchType.LAZY)
