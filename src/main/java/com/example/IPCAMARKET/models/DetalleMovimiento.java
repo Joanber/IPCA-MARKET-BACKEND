@@ -27,13 +27,13 @@ public class DetalleMovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDetalleMovimiento;
 
     @Column(name = "cantidad_detalle_movimiento", nullable = false)
     private Integer cantidad_detalle_movimiento;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_detalle_movimientos")
     @JoinColumn(name = "idMovimiento")
     @ManyToOne(fetch = FetchType.LAZY)
     private Movimiento movimiento;

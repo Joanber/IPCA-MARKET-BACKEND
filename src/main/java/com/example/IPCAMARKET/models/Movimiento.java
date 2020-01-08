@@ -32,7 +32,7 @@ public class Movimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idMovimiento;
 
     @Column(name = "fecha_movimiento", nullable = false)
@@ -41,17 +41,17 @@ public class Movimiento implements Serializable {
     @Column(name = "observacion_movimiento", nullable = true, length = 150)
     private String observacion_movimiento;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_movimiento")
     @JoinColumn(name = "idTipoMovimiento")
     @ManyToOne(fetch = FetchType.LAZY)
     private TipoMovimiento tipoMovimiento;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_movimientos_usuario")
     @JoinColumn(name = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_detalle_movimientos")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movimiento")
     private List<DetalleMovimiento> detalleMovimientos;
 

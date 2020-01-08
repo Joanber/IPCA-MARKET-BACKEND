@@ -28,7 +28,7 @@ public class TipoMovimiento implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTipoMovimiento;
 
     @Column(name = "nombre_tipo_movimiento", nullable = false, length = 20)
@@ -37,7 +37,7 @@ public class TipoMovimiento implements Serializable {
     @Column(name = "es_ingreso_tipo_movimiento", nullable = true)
     private boolean es_ingreso_tipo_movimiento;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_movimiento")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tipoMovimiento")
     private List<Movimiento> movimientos;
 

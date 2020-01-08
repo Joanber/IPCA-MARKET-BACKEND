@@ -29,7 +29,7 @@ public class EncabezadoFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEncabezadoFactura;
 
     @Column(name = "fecha_encabezadoFactura", nullable = false)
@@ -38,7 +38,7 @@ public class EncabezadoFactura implements Serializable {
     @Column(name = "nombreInstituto", nullable = true)
     private String nombreInstituto;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_detalle_fac")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "encabezadoFactura")
     private List<DetalleFactura> detalleFacturas;
 

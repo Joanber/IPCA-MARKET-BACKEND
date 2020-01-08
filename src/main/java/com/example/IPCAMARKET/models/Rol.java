@@ -27,7 +27,7 @@ public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRol;
 
     @Column(name = "nombre_rol", nullable = false, length = 50)
@@ -36,7 +36,7 @@ public class Rol implements Serializable {
     @Column(name = "descripcion_rol", nullable = true, length = 100)
     private String descripcion_rol;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_rol")
     @JoinColumn(name = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;

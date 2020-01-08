@@ -68,7 +68,8 @@ public class Persona implements Serializable {
 
     @Column(name = "foto_persona", nullable = false)
     private String foto_persona;
-
+    
+    @JsonManagedReference(value="ref_usuario")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "persona")
     private List<Usuario> usuarios;
 

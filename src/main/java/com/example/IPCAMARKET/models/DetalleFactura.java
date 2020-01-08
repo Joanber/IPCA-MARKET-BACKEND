@@ -25,7 +25,7 @@ public class DetalleFactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDetalleFactura;
 
     @Column(name = "cantidad_detalle_factura", nullable = false)
@@ -37,12 +37,12 @@ public class DetalleFactura implements Serializable {
     @Column(name = "total_detalle_factura", nullable = false)
     private double total_detalle_factura;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_detalle_factura_prod")
     @JoinColumn(name = "idProducto")
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_detalle_fac")
     @JoinColumn(name = "idEncabezadoFactura")
     @ManyToOne(fetch = FetchType.LAZY)
     private EncabezadoFactura encabezadoFactura;

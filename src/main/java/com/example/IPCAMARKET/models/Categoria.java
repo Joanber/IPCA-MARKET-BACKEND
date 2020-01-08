@@ -38,7 +38,8 @@ public class Categoria implements Serializable {
 
     @Column(name = "descripcion_categoria", nullable = true, length = 150)
     private String descripcion_categoria;
-    @JsonBackReference
+    
+    @JsonBackReference(value="ref_categoria")
     @JoinColumn(name = "idProducto")
     @ManyToOne(fetch = FetchType.LAZY)
     private Producto producto;

@@ -31,7 +31,7 @@ public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
     @Column(name = "nombre_usuario", nullable = false, length = 50)
@@ -40,16 +40,16 @@ public class Usuario implements Serializable {
     @Column(name = "password_usuario", nullable = false, length = 50)
     private String password_usuario;
 
-    @JsonBackReference
+    @JsonBackReference(value="ref_usuario")
     @JoinColumn(name = "idPersona")
     @ManyToOne(fetch = FetchType.LAZY)
     private Persona persona;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_rol")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
     private List<Rol> roles;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_movimientos_usuario")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
     private List<Movimiento> movimientos;
 

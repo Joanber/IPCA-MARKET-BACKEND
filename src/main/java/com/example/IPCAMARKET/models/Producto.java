@@ -28,7 +28,7 @@ public class Producto implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idProducto;
 
     @Column(name = "codigoBarras_producto", nullable = false, length = 25)
@@ -49,11 +49,11 @@ public class Producto implements Serializable {
     @Column(name = "foto_producto", nullable = true)
     private byte foto_producto;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_categoria")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto")
     private List<Categoria> categorias;
 
-    @JsonManagedReference
+    @JsonManagedReference(value="ref_detalle_factura_prod")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto")
     private List<DetalleFactura> detalleFacturas;
 
