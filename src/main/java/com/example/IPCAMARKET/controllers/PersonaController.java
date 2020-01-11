@@ -27,7 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author Skull
  */
-@RestController @CrossOrigin(origins = "http://localhost:4200")
+@RestController 
+@CrossOrigin(origins = "http://localhost:4200",methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT})
 @RequestMapping("/ipcaMarket")
 public class PersonaController {
     @Autowired

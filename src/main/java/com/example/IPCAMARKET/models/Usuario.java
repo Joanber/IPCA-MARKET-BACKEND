@@ -34,10 +34,10 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
-    @Column(name = "nombre_usuario", nullable = false, length = 50)
+    @Column(name = "nombre_usuario", nullable = false, length = 100)
     private String nombre_usuario;
 
-    @Column(name = "password_usuario", nullable = false, length = 50)
+    @Column(name = "password_usuario", nullable = false, length = 200)
     private String password_usuario;
 
     @JsonBackReference(value="ref_usuario")
