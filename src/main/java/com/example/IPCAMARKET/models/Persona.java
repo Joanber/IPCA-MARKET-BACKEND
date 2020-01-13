@@ -70,7 +70,7 @@ public class Persona implements Serializable {
     private String foto_persona;
     
     @JsonManagedReference(value="ref_usuario")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "persona")
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "persona")
     private List<Usuario> usuarios;
 
     public Persona() {

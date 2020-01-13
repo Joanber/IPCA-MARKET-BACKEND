@@ -5,7 +5,6 @@
  */
 package com.example.IPCAMARKET.servicePersonaUsuario;
 
-import servicePersonaUsuario.*;
 import com.example.IPCAMARKET.models.Persona;
 import com.example.IPCAMARKET.models.Usuario;
 import com.example.IPCAMARKET.repositories.PersonaRepository;
@@ -35,13 +34,15 @@ public class PersonaService {
     }
     public Usuario guardarUsuario(Usuario u){
         encriptaPass(u);
+        
         return repUsuario.save(u);
     }
-
-    private void encriptaPass(Usuario u) {
+    
+    public void encriptaPass(Usuario u) {
         u.setPassword_usuario(bCryptEncoder.
                 encode(u.getPassword_usuario()));
     }
+    
 
 
 }
