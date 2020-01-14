@@ -6,6 +6,8 @@
 package com.example.IPCAMARKET.controllers;
 
 import com.example.IPCAMARKET.models.Usuario;
+import com.example.IPCAMARKET.repositories.PersonaRepository;
+import com.example.IPCAMARKET.repositories.RolRepository;
 import com.example.IPCAMARKET.repositories.UsuarioRepository;
 import com.example.IPCAMARKET.servicePersonaUsuario.PersonaService;
 import java.util.List;
@@ -37,9 +39,15 @@ public class UsuarioController {
 
     @Autowired
     private PersonaService personaService;
+    
+    @Autowired
+    private PersonaRepository repPersona;
+    
+    @Autowired
+    private RolRepository rolRepository;
 
     @GetMapping("/usuarios")
-    public List<Usuario> seleccionar() {
+    public List<Usuario> getAllUsuarios() {
         return this.usuarioRepository.findAll();
     }
 
@@ -53,7 +61,9 @@ public class UsuarioController {
         Usuario user = this.usuarioRepository.findbyId(id);
         if (user.getIdUsuario() != null) {
             user.setNombre_usuario(u.getNombre_usuario());
-            personaService.encriptaPass(u);
+            user.setPersona(repPersona.buscarPersonaById(u.getPersona().getIdPersona()));
+            user.setRol(rolRepository.buscarRolById(u.getRol().getIdRol()));
+            personaService.encriptaPass(user);
             return usuarioRepository.save(user);
         }
         return user;

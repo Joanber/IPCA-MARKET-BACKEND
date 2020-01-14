@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.criteria.Fetch;
 
 /**
  *
@@ -35,42 +36,42 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPersona;
 
-    @Column(name = "cedula_persona",nullable = true,  length = 15)
+    @Column(name = "cedula_persona",nullable = false,  length = 15)
     private String cedula_persona;
 
-    @Column(name = "primer_nombre_persona", nullable = true, length = 50)
+    @Column(name = "primer_nombre_persona", nullable = false, length = 50)
     private String primer_nombre_persona;
 
-    @Column(name = "segundo_nombre_persona", nullable = false, length = 50)
+    @Column(name = "segundo_nombre_persona", nullable = true, length = 50)
     private String segundo_nombre_persona;
 
-    @Column(name = "primer_apellido_persona", nullable = true, length = 50)
+    @Column(name = "primer_apellido_persona", nullable = false, length = 50)
     private String primer_apellido_persona;
 
-    @Column(name = "segundo_apellido_persona", nullable = false, length = 50)
+    @Column(name = "segundo_apellido_persona", nullable = true, length = 50)
     private String segundo_apellido_persona;
 
-    @Column(name = "telefono_persona", nullable = false, length = 15)
+    @Column(name = "telefono_persona", nullable = true, length = 15)
     private String telefono_persona;
 
-    @Column(name = "direccion_persona", nullable = false, length = 150)
+    @Column(name = "direccion_persona", nullable = true, length = 150)
     private String direccion_persona;
 
-    @Column(name = "email_persona", nullable = false, length = 75)
+    @Column(name = "email_persona", nullable = true, length = 75)
     private String email_persona;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento", nullable = true)
     @Temporal(TemporalType.DATE)
     private Date fecha_nacimiento;
 
     @Column(name = "genero_persona", nullable = false, length = 30)
     private String genero_persona;
 
-    @Column(name = "foto_persona", nullable = false)
+    @Column(name = "foto_persona", nullable = true)
     private String foto_persona;
     
     @JsonManagedReference(value="ref_usuario")
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, mappedBy = "persona")
+    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.LAZY, mappedBy = "persona")
     private List<Usuario> usuarios;
 
     public Persona() {

@@ -6,7 +6,10 @@
 package com.example.IPCAMARKET.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,11 +39,11 @@ public class Rol implements Serializable {
 
     @Column(name = "descripcion_rol", nullable = true, length = 100)
     private String descripcion_rol;
+    
+     @JsonManagedReference(value="ref_rol")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "rol")
+    private List<Usuario> usuarios;
 
-    @JsonBackReference(value="ref_rol")
-    @JoinColumn(name = "idUsuario")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Usuario usuario;
 
     public Rol() {
     }
@@ -68,12 +72,14 @@ public class Rol implements Serializable {
         this.descripcion_rol = descripcion_rol;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
+
+   
 
 }

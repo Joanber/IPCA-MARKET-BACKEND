@@ -41,13 +41,15 @@ public class Usuario implements Serializable {
     private String password_usuario;
 
     @JsonBackReference(value="ref_usuario")
-    @JoinColumn(name = "idPersona")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPersona",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Persona persona;
 
-    @JsonManagedReference(value="ref_rol")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
-    private List<Rol> roles;
+    
+    @JsonBackReference(value="ref_rol")
+    @JoinColumn(name = "idRol",nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Rol rol;
 
     @JsonManagedReference(value="ref_movimientos_usuario")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario")
@@ -88,13 +90,15 @@ public class Usuario implements Serializable {
         this.persona = persona;
     }
 
-    public List<Rol> getRoles() {
-        return roles;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setRoles(List<Rol> roles) {
-        this.roles = roles;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
+
+    
 
     public List<Movimiento> getMovimientos() {
         return movimientos;
