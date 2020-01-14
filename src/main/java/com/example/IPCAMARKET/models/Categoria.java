@@ -6,7 +6,10 @@
 package com.example.IPCAMARKET.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +18,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,11 +39,10 @@ public class Categoria implements Serializable {
 
     @Column(name = "descripcion_categoria", nullable = true, length = 150)
     private String descripcion_categoria;
-    
-    @JsonBackReference(value="ref_categoria")
-    @JoinColumn(name = "idProducto")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Producto producto;
+
+    @JsonManagedReference(value = "ref_categoria")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "categoria")
+    private List<Producto> productos;
 
     public Categoria() {
     }
@@ -68,12 +71,12 @@ public class Categoria implements Serializable {
         this.descripcion_categoria = descripcion_categoria;
     }
 
-    public Producto getProducto() {
-        return producto;
+    public List<Producto> getProductos() {
+        return productos;
     }
 
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
 }

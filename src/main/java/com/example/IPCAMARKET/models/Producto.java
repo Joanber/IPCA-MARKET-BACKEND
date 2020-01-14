@@ -5,6 +5,7 @@
  */
 package com.example.IPCAMARKET.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +16,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -49,11 +52,12 @@ public class Producto implements Serializable {
     @Column(name = "foto_producto", nullable = true)
     private byte foto_producto;
 
-    @JsonManagedReference(value="ref_categoria")
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto")
-    private List<Categoria> categorias;
+    @JsonBackReference(value = "ref_categoria")
+    @JoinColumn(name = "idCategoria", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Categoria categoria;
 
-    @JsonManagedReference(value="ref_detalle_factura_prod")
+    @JsonManagedReference(value = "ref_detalle_factura_prod")
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "producto")
     private List<DetalleFactura> detalleFacturas;
 
@@ -116,12 +120,12 @@ public class Producto implements Serializable {
         this.foto_producto = foto_producto;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public List<DetalleFactura> getDetalleFacturas() {

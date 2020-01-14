@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,24 +27,32 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andy
  */
 @RestController @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/ipcaMarket/c")
+@RequestMapping("/categoria")
 public class CategoriaController {
     @Autowired
     private CategoriaRepository categoriaRepository;
     
     
-    @RequestMapping(value = "/newcategoria", method = RequestMethod.POST, headers = "Accept=application/json",consumes = MediaType.APPLICATION_JSON_VALUE)
+     @GetMapping("/categorias")
+    public List<Categoria> getAllCategorias(){
+        return categoriaRepository.findAll();
+    }
+    @PostMapping("/newcategoria")
     public Categoria guardarCategoria(@Valid @RequestBody Categoria categoria){
         return categoriaRepository.save(categoria);
     }
     
-    @RequestMapping(value = "/categorias", method = RequestMethod.GET, headers = "Accept=application/json",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<Categoria> getAllCategorias(){
-        return categoriaRepository.findAll();
-    }
     
-//    @PutMapping("/editar/{idCategoria}")
-//    public 
+    @PutMapping("/editar/{idCategoria}")
+    public Categoria editarCategoria(@RequestBody Categoria c ,@PathVariable("idCategoria") Long idCategoria){
+        Categoria ca=this.categoriaRepository.buscarCategoriaById(idCategoria);
+        if(ca.getIdCategoria()!=null){
+            ca.setNombre_categoria(c.getNombre_categoria());
+            ca.setDescripcion_categoria(c.getDescripcion_categoria());
+            return this.categoriaRepository.save(ca);
+        }
+        return ca;
+    }
 
     
 }
