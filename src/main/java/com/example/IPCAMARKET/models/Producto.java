@@ -50,7 +50,7 @@ public class Producto implements Serializable {
     private double cantidadMin_producto;
 
     @Column(name = "foto_producto", nullable = true)
-    private byte foto_producto;
+    private String foto_producto;
 
     @JsonBackReference(value = "ref_categoria")
     @JoinColumn(name = "idCategoria", nullable = false)
@@ -112,13 +112,14 @@ public class Producto implements Serializable {
         this.cantidadMin_producto = cantidadMin_producto;
     }
 
-    public byte getFoto_producto() {
+    public String getFoto_producto() {
         return foto_producto;
     }
 
-    public void setFoto_producto(byte foto_producto) {
+    public void setFoto_producto(String foto_producto) {
         this.foto_producto = foto_producto;
     }
+
 
     public Categoria getCategoria() {
         return categoria;
