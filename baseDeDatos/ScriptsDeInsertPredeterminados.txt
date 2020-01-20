@@ -1,3 +1,30 @@
+INSERT INTO public.rol(
+	 descripcion_rol, nombre_rol)
+	VALUES ('Administrador del Sistema', 'Administrador'),
+	       ('Empleado del Sistema', 'Empleado');
+
+INSERT INTO public.persona(cedula_persona, direccion_persona, email_persona, fecha_nacimiento, 
+	foto_persona, genero_persona, primer_apellido_persona, primer_nombre_persona, 
+	segundo_apellido_persona, segundo_nombre_persona, telefono_persona)
+	VALUES ('1234567890', 'Fray Gaspar de Villarroel entre Av. Isabel La Católica y Av. 1ro de Mayo','ipca_cuenca@hotmail.es','20-01-2020',
+			'foto', 'Masculino', 'ipca','ipca',
+			'ipca','ipca', '4106861'),
+			('0106385065', 'Lazareto','pepeandy1998@gmail.com','20-01-1998',
+			'foto', 'Masculino', 'Bermeo','Jose',
+			'Suquilanda','Andres', '0990613829'),
+			('0101010101', 'Kennedy','pabloandres120297@gmail.com','20-01-2020',
+			'foto', 'Masculino', 'Chacon','Pablo',
+			'Tello','Andres', '0000000000'),
+			('0000000000', 'Euclides y plutarco','mirianydavid001@hotmail.com','20-01-2020',
+			'foto', 'Masculino', 'Anchundia','Byron',
+			'Peña','David', '0000000000');
+INSERT INTO public.usuario(
+	 nombre_usuario, password_usuario, id_persona, id_rol)
+	VALUES ('admin', 'admin*', 1, 1),
+	       ('botas', '12345', 2, 1),
+		   ('pablito', '12345', 3, 1),
+		   ('byron', '12345', 4, 1);
+
 INSERT INTO public.categoria(
 	 descripcion_categoria, nombre_categoria)
 	VALUES ('Frituras', 'Snack'),
@@ -5,3 +32,12 @@ INSERT INTO public.categoria(
 	       ('Dulces','Golosinas'),
 	       ('Comestibles','Galletas'),
 	       ('Comestibles rapidos','Comida Rapida');
+		   
+INSERT INTO public.producto(
+	cantidad_actual_producto, cantidad_min_producto, codigo_barras_producto, foto_producto,
+	nombre_producto, precio_producto, id_categoria)
+	VALUES (5, 5,'123456789', 'foto', 'Rufles picante', 0.25,1),
+	       (5, 5,'12345678910', 'foto', 'Coca Cola', 0.25,2),
+		   (5, 5,'12345678911', 'foto', 'Barrilete', 0.10,3),
+		   (5, 5,'12345678912', 'foto', 'Galleta amor', 1.00,4),
+		   (5, 5,'12345678913', 'foto', 'Hot Dog', 1.00,5);
