@@ -1,0 +1,7 @@
+INSERT INTO public.categoria(
+	 descripcion_categoria, nombre_categoria)
+	VALUES ('Frituras', 'Snack'),
+	       ('Energizantes','Bebidas'),
+	       ('Dulces','Golosinas'),
+	       ('Comestibles','Galletas'),
+	       ('Comestibles rapidos','Comida Rapida');
