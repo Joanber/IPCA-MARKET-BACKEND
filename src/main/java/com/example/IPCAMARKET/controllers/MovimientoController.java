@@ -56,7 +56,7 @@ public class MovimientoController {
     
     @PutMapping(path = "/editar/{idMovimiento}")
     public Movimiento guardarMovimiento(@RequestBody Movimiento m, @PathVariable("idMovimiento") Long idMovimiento){
-        Movimiento mov=new Movimiento();
+        Movimiento mov=this.movimientoRepository.buscarMovimientobyId(idMovimiento);
         if(mov.getIdMovimiento()!=null){
         mov.setFecha_movimiento(LocalDate.now());
         mov.setObservacion_movimiento(m.getObservacion_movimiento());

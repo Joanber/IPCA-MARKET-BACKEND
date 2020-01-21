@@ -41,3 +41,8 @@ INSERT INTO public.producto(
 		   (5, 5,'12345678911', 'foto', 'Barrilete', 0.10,3),
 		   (5, 5,'12345678912', 'foto', 'Galleta amor', 1.00,4),
 		   (5, 5,'12345678913', 'foto', 'Hot Dog', 1.00,5);
+
+INSERT INTO public.tipo_movimiento(
+	 nombre_tipo_movimiento)
+	VALUES ('Entrada'),
+	       ('Salida');
