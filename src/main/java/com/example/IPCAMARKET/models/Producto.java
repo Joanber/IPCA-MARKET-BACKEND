@@ -39,6 +39,9 @@ public class Producto implements Serializable {
 
     @Column(name = "nombre_producto", nullable = false, length = 300)
     private String nombre_producto;
+    
+    @Column(name = "descripcion_producto", nullable = true, length = 300)
+    private String descripcion_producto;
 
     @Column(name = "precio_producto", nullable = false)
     private double precio_producto;
@@ -136,5 +139,14 @@ public class Producto implements Serializable {
     public void setDetalleFacturas(List<DetalleFactura> detalleFacturas) {
         this.detalleFacturas = detalleFacturas;
     }
+
+    public String getDescripcion_producto() {
+        return descripcion_producto;
+    }
+
+    public void setDescripcion_producto(String descripcion_producto) {
+        this.descripcion_producto = descripcion_producto;
+    }
+    
 
 }

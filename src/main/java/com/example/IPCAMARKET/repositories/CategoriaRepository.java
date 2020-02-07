@@ -21,6 +21,9 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
     @Query(value="SELECT c FROM Categoria c where c.idCategoria=:idCategoria")
     Categoria buscarCategoriaById(@Param("idCategoria") Long idCategoria);
     
+    @Query(value="SELECT c FROM Categoria c where c.nombre_categoria=:nombre_categoria")
+    Categoria buscarProductosByName(@Param("nombre_categoria") String nombre_categoria);
+    
 
     
     

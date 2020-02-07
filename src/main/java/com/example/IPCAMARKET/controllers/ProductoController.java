@@ -5,6 +5,7 @@
  */
 package com.example.IPCAMARKET.controllers;
 
+import com.example.IPCAMARKET.InterfaceStrucProducto.CategoriaProductos;
 import com.example.IPCAMARKET.models.Producto;
 import com.example.IPCAMARKET.repositories.CategoriaRepository;
 import com.example.IPCAMARKET.repositories.ProductoRepository;
@@ -30,14 +31,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/producto")
 @CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class ProductoController {
-    
     @Autowired
     private ProductoRepository productoRepository;
-    
     @Autowired
     private CategoriaRepository categoriaRepository;
-    
-    
     @GetMapping("/productos")
     public List<Producto> getAllProductos(){
         return this.productoRepository.findAll();
@@ -51,10 +48,10 @@ public class ProductoController {
         pro.setCantidadActual_producto(p.getCantidadActual_producto());
         pro.setCantidadMin_producto(p.getCantidadMin_producto());
         pro.setFoto_producto(p.getFoto_producto());
+        pro.setDescripcion_producto(p.getDescripcion_producto());
         pro.setCategoria(categoriaRepository.buscarCategoriaById(p.getCategoria().getIdCategoria()));
         return this.productoRepository.save(pro);
     }
-    
     @PutMapping(path = "/editar/{idProducto}")
     public Producto editarProducto(@RequestBody Producto p, @PathVariable("idProducto") Long idProducto){
         Producto pro=this.productoRepository.buscarPorId(idProducto);
@@ -65,21 +62,24 @@ public class ProductoController {
         pro.setCantidadActual_producto(p.getCantidadActual_producto());
         pro.setCantidadMin_producto(p.getCantidadMin_producto());
         pro.setFoto_producto(p.getFoto_producto());
+        pro.setDescripcion_producto(p.getDescripcion_producto());
         pro.setCategoria(categoriaRepository.buscarCategoriaById(p.getCategoria().getIdCategoria()));
         return this.productoRepository.save(pro);
         }
         return pro;
     }
-    
     @DeleteMapping("/delete/{idProducto}")
     public void eliminarProducto(@PathVariable("idProducto") Long idProducto){
         Producto pro=this.productoRepository.buscarPorId(idProducto);
         this.productoRepository.delete(pro);
     }
-    
     @GetMapping("/{idProducto}")
     public Producto getProductoById(@PathVariable Long idProducto){
         return this.productoRepository.buscarPorId(idProducto);
     }
+//    @GetMapping("/categoriaProductos/{nombre_categoria}")
+//    public List<CategoriaProductos> getProductosCategoria(@PathVariable String nombre_categoria){
+//        return this.productoRepository.getCategoriaProductos(nombre_categoria);
+//    }
     
 }

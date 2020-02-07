@@ -66,6 +66,11 @@ public class CategoriaController {
     public Categoria getCategoriaById(@PathVariable Long idCategoria){
         return this.categoriaRepository.buscarCategoriaById(idCategoria);
     }
+    
+    @GetMapping("/productosCategoria/{nombre_categoria}")
+    public Categoria getProductosByCategoria(@PathVariable String nombre_categoria){
+        return this.categoriaRepository.buscarProductosByName(nombre_categoria);
+    }
 
     
 }
