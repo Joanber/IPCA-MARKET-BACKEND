@@ -1,0 +1,11 @@
+{
+  "activo": true,
+  "password": "12345",
+  "username": "botas"
+  "persona": {
+    "idPersona": 10
+         },
+  "rol": {
+    "idRol": 5
+     }
+}

@@ -39,8 +39,9 @@ public class PersonaService {
 
     public Usuario guardarUsuario(Usuario u) {
         Usuario user = new Usuario();
-        user.setNombre_usuario(u.getNombre_usuario());
-        user.setPassword_usuario(u.getPassword_usuario());
+        user.setUsername(u.getUsername());
+        user.setPassword(u.getPassword());
+        user.setActivo(u.isActivo());
         user.setPersona(repPersona.buscarPersonaById(u.getPersona().getIdPersona()));
         user.setRol(rolRepository.buscarRolById(u.getRol().getIdRol()));
         encriptaPass(user);
@@ -49,8 +50,8 @@ public class PersonaService {
     }
 
     public void encriptaPass(Usuario u) {
-        u.setPassword_usuario(bCryptEncoder.
-                encode(u.getPassword_usuario()));
+        u.setPassword(bCryptEncoder.
+                encode(u.getPassword()));
     }
 
 }

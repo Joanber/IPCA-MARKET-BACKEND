@@ -5,7 +5,7 @@
  */
 package com.example.IPCAMARKET.controllers;
 
-import com.example.IPCAMARKET.InterfaceStrucProducto.CategoriaProductos;
+
 import com.example.IPCAMARKET.models.Producto;
 import com.example.IPCAMARKET.repositories.CategoriaRepository;
 import com.example.IPCAMARKET.repositories.ProductoRepository;
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/producto")
-@CrossOrigin(origins = "http://localhost:4200", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "*")
 public class ProductoController {
     @Autowired
     private ProductoRepository productoRepository;

@@ -18,12 +18,6 @@ INSERT INTO public.persona(cedula_persona, direccion_persona, email_persona, fec
 			('0000000000', 'Euclides y plutarco','mirianydavid001@hotmail.com','20-01-2020',
 			'foto', 'Masculino', 'Anchundia','Byron',
 			'Peña','David', '0000000000');
-INSERT INTO public.usuario(
-	 nombre_usuario, password_usuario, id_persona, id_rol)
-	VALUES ('admin', 'admin*', 1, 1),
-	       ('botas', '12345', 2, 1),
-		   ('pablito', '12345', 3, 1),
-		   ('byron', '12345', 4, 1);
 
 INSERT INTO public.categoria(
 	 descripcion_categoria, nombre_categoria)

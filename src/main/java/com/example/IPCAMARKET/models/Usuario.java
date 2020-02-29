@@ -34,13 +34,24 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
 
-    @Column(name = "nombre_usuario", nullable = false, length = 100)
-    private String nombre_usuario;
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
 
-    @Column(name = "password_usuario", nullable = false, length = 200)
-    private String password_usuario;
+    @Column(name = "password", nullable = false, length = 200)
+    private String password;
+    
+    @Column(name = "activo")
+    private boolean activo;
 
-    @JsonBackReference(value="ref_usuario")
+    public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	@JsonBackReference(value="ref_usuario")
     @JoinColumn(name = "idPersona",nullable = false)
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Persona persona;
@@ -66,23 +77,24 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public String getNombre_usuario() {
-        return nombre_usuario;
-    }
 
-    public void setNombre_usuario(String nombre_usuario) {
-        this.nombre_usuario = nombre_usuario;
-    }
+    public String getUsername() {
+		return username;
+	}
 
-    public String getPassword_usuario() {
-        return password_usuario;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setPassword_usuario(String password_usuario) {
-        this.password_usuario = password_usuario;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public Persona getPersona() {
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Persona getPersona() {
         return persona;
     }
 

@@ -5,10 +5,10 @@
  */
 package com.example.IPCAMARKET.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
-import java.time.LocalDate;
+
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.criteria.Fetch;
+
 
 /**
  *
