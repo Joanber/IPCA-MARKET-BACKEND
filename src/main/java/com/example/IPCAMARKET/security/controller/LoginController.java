@@ -9,6 +9,7 @@ import com.example.IPCAMARKET.models.Usuario;
 import com.example.IPCAMARKET.security.config.JwtTokenUtil;
 import com.example.IPCAMARKET.security.config.JwtUser;
 import com.example.IPCAMARKET.security.pojos.UserDTO;
+import com.example.IPCAMARKET.security.repository.UserRepository;
 import com.example.IPCAMARKET.servicePersonaUsuario.PersonaService;
 import com.example.IPCAMARKET.utils.UnauthorizedException;
 
@@ -47,21 +48,20 @@ public class LoginController {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private PersonaService personaService;
-    
-    
+    @Autowired
+    private UserRepository userRepository;
     
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @CrossOrigin
     public ResponseEntity<UserDTO> login(@RequestBody Usuario user ,HttpServletRequest request,HttpServletResponse response){
     	try {
-    		
 			Authentication authentication=authenticationManager.
 			authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 			final JwtUser userDetails=(JwtUser)authentication.getPrincipal();
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			final String token=jwtTokenUtil.generateToken(userDetails);
 			response.setHeader("Token", token);
-			return new ResponseEntity<UserDTO>(new UserDTO(userDetails.getUser(), token),HttpStatus.OK);
+			return new ResponseEntity<UserDTO>(new UserDTO(userRepository.buscarPorUsername(user.getUsername()), token),HttpStatus.OK);
 		} catch (Exception e) {
 			throw new UnauthorizedException(e.getMessage());
 		}
@@ -72,15 +72,7 @@ public class LoginController {
         return personaService.guardarUsuario(u);
     }
     
-    @RequestMapping(value = "/login2",method = RequestMethod.POST)
-    @CrossOrigin
-    public Usuario login2(@RequestBody Usuario user){
-    	try {
-    		return user;
-		} catch (Exception e) {
-			throw new UnauthorizedException(e.getMessage()+"------------->>>>>>>>>>>>>>>>>>");
-		}
-    }
+  
     
 
 }

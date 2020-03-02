@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.csrf.CsrfFilter;
 
 import com.example.IPCAMARKET.security.config.AuthenticationTokenFilter;
 import com.example.IPCAMARKET.security.config.CsrfHeaderFilter;
@@ -47,21 +46,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public AuthenticationTokenFilter authenticationTokenFilterBean() {
 		return new AuthenticationTokenFilter();
 	}
+	
+	@Autowired
+	private CsrfHeaderFilter csrfheaderfilter;
+	
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception{
-		httpSecurity.csrf().disable().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().
-		sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().
-		authorizeRequests().
-		antMatchers("/registrarse").permitAll()
+		httpSecurity.csrf().disable()
+		.exceptionHandling()
+		.authenticationEntryPoint(authenticationEntryPoint)
+		.and().sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and().authorizeRequests()
+		.antMatchers("/registrarse").permitAll()
 		.antMatchers("/login").permitAll()
 		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
 		.anyRequest().authenticated();
 		
-		httpSecurity.addFilterBefore(authenticationTokenFilterBean(),UsernamePasswordAuthenticationFilter.class)
-		.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
+		httpSecurity.addFilterBefore(csrfheaderfilter, UsernamePasswordAuthenticationFilter.class);
 		
-		httpSecurity.headers().cacheControl();
-		httpSecurity.headers().httpStrictTransportSecurity().includeSubDomains(true).maxAgeInSeconds(31536000);
 	}
 
 }
