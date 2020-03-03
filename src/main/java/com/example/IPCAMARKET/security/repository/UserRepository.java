@@ -19,7 +19,7 @@ public interface UserRepository extends CrudRepository<Usuario, Long> {
 	
 	@Query(value = "SELECT u.id_usuario AS id,\r\n" + 
 			"u.username AS username,\r\n" + 
-			"u.id_rol AS rol,\r\n" + 
+			"r.nombre_rol AS rol,\r\n" + 
 			"u.id_persona AS persona\r\n" + 
 			"from \"public\".usuario u join rol r on u.id_rol=r.id_rol\r\n" + 
 			"join persona p on u.id_persona=p.id_persona\r\n" + 

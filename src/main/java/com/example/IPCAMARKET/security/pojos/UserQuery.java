@@ -4,7 +4,7 @@ public interface UserQuery {
      
 	long getId();
 	String getUsername();
-	long getRol();
+	String getRol();
 	long getPersona();
 	
 }

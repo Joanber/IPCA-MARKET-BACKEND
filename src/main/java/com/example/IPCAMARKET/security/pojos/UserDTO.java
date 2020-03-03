@@ -12,7 +12,7 @@ public class UserDTO implements Serializable {
 	
 	private final long id_user;
 	private final String username;
-	private final long id_rol;
+	private final String rol;
 	private final long id_persona;
 	private final String token;
 	
@@ -21,7 +21,7 @@ public class UserDTO implements Serializable {
 		super();
 		this.id_user = u.getId();
 		this.username = u.getUsername();
-		this.id_rol = u.getRol();
+		this.rol = u.getRol();
 		this.id_persona = u.getPersona();
 		this.token = token;
 	}
@@ -31,19 +31,18 @@ public class UserDTO implements Serializable {
 	}
 
 
-	public String getUsername() {
-		return username;
+	public String getRol() {
+		return rol;
 	}
-
-
-	public long getId_rol() {
-		return id_rol;
-	}
-
 
 	public long getId_persona() {
 		return id_persona;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
 	public String getToken() {
 		return token;
 	}
