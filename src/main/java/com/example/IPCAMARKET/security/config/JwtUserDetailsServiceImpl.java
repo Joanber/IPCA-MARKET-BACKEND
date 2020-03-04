@@ -1,6 +1,9 @@
 package com.example.IPCAMARKET.security.config;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +24,8 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 			throw new UsernameNotFoundException(String.format("Usuario No encontrado con username: ", username));
 		}
 		else {
-			return JwtuserFactory.create(user);
+//			return JwtuserFactory.create(user);
+			return new User(user.getUsername(),user.getPassword(),new ArrayList<>());
 			
 		}
 		

@@ -7,24 +7,23 @@ package com.example.IPCAMARKET.security.controller;
 
 import com.example.IPCAMARKET.models.Usuario;
 import com.example.IPCAMARKET.security.config.JwtTokenUtil;
-import com.example.IPCAMARKET.security.config.JwtUser;
+import com.example.IPCAMARKET.security.config.JwtUserDetailsServiceImpl;
 import com.example.IPCAMARKET.security.pojos.UserDTO;
 import com.example.IPCAMARKET.security.repository.UserRepository;
 import com.example.IPCAMARKET.servicePersonaUsuario.PersonaService;
-import com.example.IPCAMARKET.utils.UnauthorizedException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class LoginController {
 	
-	@Value("${jwt.header}")
-	private String tokenHeader;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -50,21 +47,28 @@ public class LoginController {
     private PersonaService personaService;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private JwtUserDetailsServiceImpl userDetailService;
     
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseEntity<UserDTO> login(@RequestBody Usuario user ,HttpServletRequest request,HttpServletResponse response){
-    	try {
-			Authentication authentication=authenticationManager.
-			authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-			final JwtUser userDetails=(JwtUser)authentication.getPrincipal();
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+    public ResponseEntity<UserDTO> login(@RequestBody Usuario user ,HttpServletRequest request,HttpServletResponse response)throws Exception{
+    	
+			authenticate(user.getUsername(), user.getPassword());
+			
+			final UserDetails userDetails=userDetailService.loadUserByUsername(user.getUsername());
 			final String token=jwtTokenUtil.generateToken(userDetails);
-			response.setHeader("Token", token);
 			return new ResponseEntity<UserDTO>(new UserDTO(userRepository.buscarPorUsername(user.getUsername()), token),HttpStatus.OK);
-		} catch (Exception e) {
-			throw new UnauthorizedException(e.getMessage());
-		}
+		
+    }
+    private void authenticate(String username, String password) throws Exception {
+        try {
+        	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException e) {
+            throw new Exception("User diseabled", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("Bad Credentianls", e);
+        }
     }
     
     @PostMapping("/registrarse")

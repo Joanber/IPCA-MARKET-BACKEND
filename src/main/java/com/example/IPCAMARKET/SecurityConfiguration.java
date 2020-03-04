@@ -42,10 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	@Bean
-	public AuthenticationTokenFilter authenticationTokenFilterBean() {
-		return new AuthenticationTokenFilter();
-	}
 	
 	@Autowired
 	private CsrfHeaderFilter csrfheaderfilter;
@@ -53,15 +49,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception{
 		httpSecurity.csrf().disable()
-		.exceptionHandling()
-		.authenticationEntryPoint(authenticationEntryPoint)
-		.and().sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().authorizeRequests()
-		.antMatchers("/registrarse").permitAll()
-		.antMatchers("/login").permitAll()
-		.antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
-		.anyRequest().authenticated();
+        .authorizeRequests()
+        .antMatchers(
+                "/",
+                "/login",
+                "/registrarse"
+        ).permitAll()
+        .antMatchers(HttpMethod.OPTIONS, "/**")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .exceptionHandling()
+        .authenticationEntryPoint(authenticationEntryPoint)
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		httpSecurity.addFilterBefore(csrfheaderfilter, UsernamePasswordAuthenticationFilter.class);
 		

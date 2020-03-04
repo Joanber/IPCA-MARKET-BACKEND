@@ -39,20 +39,20 @@ public class CsrfHeaderFilter extends OncePerRequestFilter{
             try {
                 username = jwtTokenUtil.getUsernameFromToken(jwtToken);
             } catch (IllegalArgumentException e) {
-                System.out.println("No logramos obtener  JWT Token");
+                System.out.println("No token");
             } catch (ExpiredJwtException e) {
-                System.out.println("JWT Token ha expirado.");
+                System.out.println("Expiro token");
             }
         } else {
-            logger.warn("JWT Token no lo tenemos");
+            logger.warn("Sin token");
         }
 
-        // Validamos el username 
+        
         if (username != null
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.jwtUserDetailsServiceImpl.loadUserByUsername(username);
             
-            // Si el token es valido configuramos el Spring security 
+            
             if(jwtTokenUtil.validateToken(jwtToken, userDetails)){
                 UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(
                         userDetails, 
